@@ -1,0 +1,44 @@
+@for (item of this.data.salesState(); track item.key) {
+  <input
+    type="checkbox"
+    [checked]="item.checked"
+    (change)="onCheckBoxChange('salesState', item.key, $event)"
+  />
+  {{ item.label }}
+
+} @empty {
+  <li>There are no items.</li>
+}
+@for (item of this.data.employeesState(); track item.key) {
+  <input
+    type="checkbox"
+    [checked]="item.checked"
+    (change)="onCheckBoxChange('employeesState', item.key, $event)"
+  />
+  {{ item.label }}
+
+} @empty {
+  <li>There are no items.</li>
+}
+@for (item of this.data.partnersState(); track item.key) {
+  <input
+    type="checkbox"
+    [checked]="item.checked"
+    (change)="onCheckBoxChange('partnersState', item.key, $event)"
+  />
+  {{ item.label }}
+
+} @empty {
+  <li>There are no items.</li>
+}
+@for (item of this.data.eventState(); track item.key) {
+  <input
+    type="checkbox"
+    [checked]="item.checked"
+    (change)="onCheckBoxChange('eventState', item.key, $event)"
+  />
+  {{ item.label }}
+
+} @empty {
+  <li>There are no items.</li>
+}
