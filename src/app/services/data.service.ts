@@ -1,9 +1,14 @@
 import {computed, Injectable, signal} from '@angular/core';
+import {IndexDbService} from './index-db.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+  constructor(private indexedDB: IndexDbService) {
+    this.initializeStates();
+  }
 
   salesState = signal([
     {key: 'notProcessed', label: 'Неразобрано', checked: false},
@@ -69,6 +74,26 @@ export class DataService {
       acc + state.filter((checkbox) => checkbox.checked).length, 0)
   );
 
+  private stateKeys = ['salesState', 'employeesState', 'partnersState', 'eventState', 'incomingRequestsState'];
+
+  private async initializeStates() {
+    for (const key of this.stateKeys) {
+      const savedData = await this.indexedDB.loadData(key);
+      if (savedData) {
+        // @ts-ignore
+        this[key].set(savedData);
+      }
+    }
+  }
+
+  saveStates() {
+    this.indexedDB.saveData('salesState', this.salesState());
+    this.indexedDB.saveData('employeesState', this.employeesState());
+    this.indexedDB.saveData('partnersState', this.partnersState());
+    this.indexedDB.saveData('eventState', this.eventState());
+    this.indexedDB.saveData('incomingRequestsState', this.incomingRequestsState());
+  }
+
   /**
    * Универсальная функция для склонения слов
    * @param count number
@@ -93,6 +118,7 @@ export class DataService {
       if (checkBox) {
         checkBox.checked = value;
         state.set([...currentState]);
+        this.saveStates();
       }
     }
   }
@@ -112,6 +138,7 @@ export class DataService {
       state.forEach((checkbox) => (checkbox.checked = true));
     });
     this.updateSignals();
+    this.saveStates();
   }
 
   deselectAll() {
@@ -119,6 +146,7 @@ export class DataService {
       state.forEach((checkbox) => (checkbox.checked = false));
     });
     this.updateSignals();
+    this.saveStates();
   }
 
   private updateSignals() {
