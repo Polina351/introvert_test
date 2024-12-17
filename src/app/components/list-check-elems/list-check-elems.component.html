@@ -1,3 +1,13 @@
+<button class="btn" (click)="onButtonClick()">
+  <span *ngIf="!data.isMenuOpen()">{{ buttonText$() }}</span>
+  <span *ngIf="data.isMenuOpen() && data.isAllUnchecked()">Выбрать все</span>
+  <span *ngIf="data.isMenuOpen() && !data.isAllUnchecked()">Убрать все</span>
+</button>
+
+@if (data.isMenuOpen()) {
+  <p>Menu open</p>
+}
+
 @for (item of this.data.salesState(); track item.key) {
   <input
     type="checkbox"
@@ -36,6 +46,17 @@
     type="checkbox"
     [checked]="item.checked"
     (change)="onCheckBoxChange('eventState', item.key, $event)"
+  />
+  {{ item.label }}
+
+} @empty {
+  <li>There are no items.</li>
+}
+@for (item of this.data.incomingRequestsState(); track item.key) {
+  <input
+    type="checkbox"
+    [checked]="item.checked"
+    (change)="onCheckBoxChange('incomingRequestsState', item.key, $event)"
   />
   {{ item.label }}
 
