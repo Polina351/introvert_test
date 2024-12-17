@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, ElementRef, HostListener } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { NgIf } from '@angular/common';
+import {ListOfStagesComponent} from '../list-of-stages/list-of-stages.component';
+import {funnels} from '../../enums/enums';
 
 @Component({
   selector: 'app-list-check-elems',
   imports: [
-    NgIf
+    NgIf,
+    ListOfStagesComponent
   ],
   templateUrl: './list-check-elems.component.html',
   styleUrl: './list-check-elems.component.css',
@@ -52,4 +55,6 @@ export class ListCheckElemsComponent {
       }
     }
   }
+
+  protected readonly funnels = funnels;
 }

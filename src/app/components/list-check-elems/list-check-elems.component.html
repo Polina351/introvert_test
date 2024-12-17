@@ -5,61 +5,16 @@
 </button>
 
 @if (data.isMenuOpen()) {
-  <p>Menu open</p>
+  @for (item of data.funnelsState(); track item.key) {
+    <p (click)="item.isOpen = !item.isOpen">{{ item.label }}</p>
+    <ng-container *ngIf="item.isOpen">
+      <app-list-of-stages
+        [funnels]="item.state"
+        [stateName]="item.key"
+      />
+    </ng-container>
+  } @empty {
+    <li>There are no items.</li>
+  }
 }
 
-@for (item of this.data.salesState(); track item.key) {
-  <input
-    type="checkbox"
-    [checked]="item.checked"
-    (change)="onCheckBoxChange('salesState', item.key, $event)"
-  />
-  {{ item.label }}
-
-} @empty {
-  <li>There are no items.</li>
-}
-@for (item of this.data.employeesState(); track item.key) {
-  <input
-    type="checkbox"
-    [checked]="item.checked"
-    (change)="onCheckBoxChange('employeesState', item.key, $event)"
-  />
-  {{ item.label }}
-
-} @empty {
-  <li>There are no items.</li>
-}
-@for (item of this.data.partnersState(); track item.key) {
-  <input
-    type="checkbox"
-    [checked]="item.checked"
-    (change)="onCheckBoxChange('partnersState', item.key, $event)"
-  />
-  {{ item.label }}
-
-} @empty {
-  <li>There are no items.</li>
-}
-@for (item of this.data.eventState(); track item.key) {
-  <input
-    type="checkbox"
-    [checked]="item.checked"
-    (change)="onCheckBoxChange('eventState', item.key, $event)"
-  />
-  {{ item.label }}
-
-} @empty {
-  <li>There are no items.</li>
-}
-@for (item of this.data.incomingRequestsState(); track item.key) {
-  <input
-    type="checkbox"
-    [checked]="item.checked"
-    (change)="onCheckBoxChange('incomingRequestsState', item.key, $event)"
-  />
-  {{ item.label }}
-
-} @empty {
-  <li>There are no items.</li>
-}

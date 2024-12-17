@@ -40,6 +40,14 @@ export class DataService {
     {key: 'successful', label: 'Успешно', checked: false},
   ]);
 
+  funnelsState = signal([
+    {key: 'salesState', label: 'Продажи', state: this.salesState, isOpen: false},
+    {key: 'employeesState', label: 'Сотрудники', state: this.employeesState, isOpen: false},
+    {key: 'partnersState', label: 'Партнеры', state: this.partnersState, isOpen: false},
+    {key: 'eventState', label: 'Ивенты', state: this.eventState, isOpen: false},
+    {key: 'incomingRequestsState', label: 'Входящие обращения', state: this.incomingRequestsState, isOpen: false}
+  ])
+
   isMenuOpen = signal(false);
 
   private allStates = computed(() => [
@@ -87,7 +95,6 @@ export class DataService {
         state.set([...currentState]);
       }
     }
-    console.log(state());
   }
 
   isAllUnchecked() {
