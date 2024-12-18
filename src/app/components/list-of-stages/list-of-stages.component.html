@@ -1,5 +1,5 @@
 @for (item of funnels(); track item.key) {
-  <div class="item-box">
+  <div class="item-box" [appHighlightMenu]="item.key">
     <label class="custom-checkbox">
       <input type="checkbox"
              class="custom-checkbox__input"

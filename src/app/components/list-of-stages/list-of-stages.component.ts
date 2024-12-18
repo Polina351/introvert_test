@@ -1,9 +1,10 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, input} from '@angular/core';
-import {DataService} from '../../services/data.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { DataService } from '../../services/data.service';
+import { HighlightMenuDirective } from '../../directives/highlight-menu.directive';
 
 @Component({
   selector: 'app-list-of-stages',
-  imports: [],
+  imports: [HighlightMenuDirective],
   templateUrl: './list-of-stages.component.html',
   styleUrl: './list-of-stages.component.css',
   standalone: true,
