@@ -1,0 +1,37 @@
+<div class="select-button" (click)="onButtonClick()">
+  <ng-container>
+    <span
+      *ngIf="data.isMenuOpen() && data.isAllUnchecked()"
+      class="checkbox checkbox-icon">&#10003;
+    </span>
+    <span
+      *ngIf="!data.isMenuOpen() || data.isMenuOpen() && !data.isAllUnchecked()"
+      class="checkbox checkbox-icon">&#8722;
+    </span>
+  </ng-container>
+  <span *ngIf="!data.isMenuOpen()">{{ buttonText$() }}</span>
+  <span *ngIf="data.isMenuOpen() && data.isAllUnchecked()">Выбрать все</span>
+  <span *ngIf="data.isMenuOpen() && !data.isAllUnchecked()">Убрать все</span>
+</div>
+
+@if (data.isMenuOpen()) {
+  @for (item of data.funnelsState(); track item.key) {
+    <div class="select-button" (click)="item.isOpen = !item.isOpen">
+      <span
+        class="checkbox"
+        [ngClass]="{'checkbox-shadow': item.isOpen}"
+      >
+      </span>
+      <p>{{ item.label }}</p>
+    </div>
+    <ng-container *ngIf="item.isOpen">
+      <app-list-of-stages
+        [funnels]="item.state"
+        [stateName]="item.key"
+      />
+    </ng-container>
+  } @empty {
+    <li>There are no items.</li>
+  }
+}
+

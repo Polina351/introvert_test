@@ -1,0 +1,13 @@
+@for (item of funnels(); track item.key) {
+  <div class="item-box" [appHighlightMenu]="item.key">
+    <label class="custom-checkbox">
+      <input type="checkbox"
+             class="custom-checkbox__input"
+             [checked]="item.checked"
+             (change)="onCheckBoxChange(stateName, item.key, $event)"
+      />
+      <span class="custom-checkbox__box"></span>
+      {{ item.label }}
+    </label>
+  </div>
+}

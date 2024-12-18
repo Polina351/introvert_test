@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {ListCheckElemsComponent} from './components/list-check-elems/list-check-elems.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  imports: [
+    ListCheckElemsComponent
+  ],
+  standalone: true
 })
 export class AppComponent {
-  title = 'introvert_test';
 }
