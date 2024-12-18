@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, HostListener } from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, ElementRef, HostListener, signal} from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { NgIf } from '@angular/common';
+import {NgClass, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import {ListOfStagesComponent} from '../list-of-stages/list-of-stages.component';
-import {funnels} from '../../enums/enums';
 
 @Component({
   selector: 'app-list-check-elems',
   imports: [
     NgIf,
-    ListOfStagesComponent
+    ListOfStagesComponent,
+    NgClass,
   ],
   templateUrl: './list-check-elems.component.html',
   styleUrl: './list-check-elems.component.css',
@@ -29,6 +29,8 @@ export class ListCheckElemsComponent {
     ])}`
   );
 
+  checkboxState = signal<'checked' | 'indeterminate' >('indeterminate');
+
   constructor(protected data: DataService, private elementRef: ElementRef) {}
 
   @HostListener('document:click', ['$event'])
@@ -39,22 +41,17 @@ export class ListCheckElemsComponent {
     }
   }
 
-  onCheckBoxChange(list: string, key: string, event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    this.data.updateCheckboxState(list, key, checkbox.checked);
-  }
-
   onButtonClick() {
     if (!this.data.isMenuOpen()) {
       this.data.toggleMenu();
     } else {
       if (this.data.isAllUnchecked()) {
         this.data.selectAll();
+        this.checkboxState.set('indeterminate')
       } else {
         this.data.deselectAll();
+        this.checkboxState.set('checked');
       }
     }
   }
-
-  protected readonly funnels = funnels;
 }

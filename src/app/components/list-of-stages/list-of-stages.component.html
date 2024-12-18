@@ -1,11 +1,13 @@
 @for (item of funnels(); track item.key) {
-  <input
-    type="checkbox"
-    [checked]="item.checked"
-    (change)="onCheckBoxChange(stateName, item.key, $event)"
-  />
-  {{ item.label }}
-
-} @empty {
-  <li>There are no items.</li>
+  <div class="item-box">
+    <label class="custom-checkbox">
+      <input type="checkbox"
+             class="custom-checkbox__input"
+             [checked]="item.checked"
+             (change)="onCheckBoxChange(stateName, item.key, $event)"
+      />
+      <span class="custom-checkbox__box"></span>
+      {{ item.label }}
+    </label>
+  </div>
 }
